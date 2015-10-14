@@ -136,6 +136,8 @@ module Rets
 
       if opts[:count] == COUNT.only
         Parser::Compact.get_count(res.body)
+      elsif Hash.responds_to? "from_xml"
+        Hash.from_xml(res.body.encode("UTF-8", res.body.encoding, :invalid => :replace, :undef => :replace))
       else
         results = Parser::Compact.parse_document(
           res.body.encode("UTF-8", res.body.encoding, :invalid => :replace, :undef => :replace)
